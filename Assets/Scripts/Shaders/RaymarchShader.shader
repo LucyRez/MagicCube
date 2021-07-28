@@ -17,14 +17,18 @@ Shader "FractalShader/RaymarchShader"
             #pragma target 3.0
 
             #include "UnityCG.cginc"
+            #include "DistanceFunctions.cginc"
 
             sampler2D _MainTex;
             uniform sampler2D _CameraDepthTexture;
 
             uniform float4x4 camFrustum, camToWorld;
             uniform float maxDistance;
-            uniform float4 sphere;
+            uniform float4 sphere, box;
+            uniform float3 modInterval;
             uniform float3 lightDirection;
+
+            uniform fixed4 mainColor;
 
             struct appdata
             {
@@ -55,13 +59,15 @@ Shader "FractalShader/RaymarchShader"
                 return o;
             }
 
-            float sdSphere(float3 p, float s){
-                return length(p) - s;
-            }
-
             float distanceField(float3 p){
+
+                float modX = pMod1(p.x, modInterval.x);
+                float modY = pMod1(p.y, modInterval.y);
+                float modZ = pMod1(p.z, modInterval.z);
                 float sphere1 = sdSphere(p - sphere.xyz, sphere.w);
-                return sphere1;
+                float cube1 = sdBox(p - box.xyz, box.www);
+
+                return opS(sphere1,cube1);
             }
 
             float3 getNormal(float3 p){
@@ -77,7 +83,7 @@ Shader "FractalShader/RaymarchShader"
 
             fixed4 raymarching(float3 ro, float3 rd, float depth){
                 fixed4 result = fixed4(1,1,1,1);
-                const int maxIter = 164;
+                const int maxIter = 500;
                 float t = 0;
 
                 for(int i = 0; i < maxIter; i++){
@@ -94,7 +100,7 @@ Shader "FractalShader/RaymarchShader"
                         float3 n = getNormal(p);
                         float light = dot(-lightDirection, n);
 
-                        result = fixed4(fixed3(1,1,1) * light,1);
+                        result = fixed4(mainColor.rgb * light,1);
                         break;
                     }
 

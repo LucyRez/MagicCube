@@ -44,6 +44,7 @@
      <None Include="Assets\Scripts\Shaders\RaymarchShader.shader" />
      <None Include="Assets\Scripts\Shaders\TestShader.shader" />
      <None Include="Assets\Scripts\Shaders\MaskShader.shader" />
+     <None Include="Assets\Scripts\Shaders\DistanceFunctions.cginc" />
      <None Include="Assets\Scripts\Shaders\ObjectShader.shader" />
     <Reference Include="UnityEngine">
         <HintPath>C:/Program Files/2020.3.11f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
