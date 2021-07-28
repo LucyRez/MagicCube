@@ -19,6 +19,7 @@ Shader "FractalShader/RaymarchShader"
             #include "UnityCG.cginc"
 
             sampler2D _MainTex;
+            uniform sampler2D _CameraDepthTexture;
 
             uniform float4x4 camFrustum, camToWorld;
             uniform float maxDistance;
@@ -74,13 +75,13 @@ Shader "FractalShader/RaymarchShader"
                 return normalize(n);
             }
 
-            fixed4 raymarching(float3 ro, float3 rd){
+            fixed4 raymarching(float3 ro, float3 rd, float depth){
                 fixed4 result = fixed4(1,1,1,1);
                 const int maxIter = 164;
                 float t = 0;
 
                 for(int i = 0; i < maxIter; i++){
-                    if(t > maxDistance){
+                    if(t > maxDistance || t >= depth){
                         result = fixed4(rd, 0);
                         break;
                     }
@@ -105,11 +106,13 @@ Shader "FractalShader/RaymarchShader"
 
             fixed4 frag (v2f i) : SV_Target
             {
+                float depth = LinearEyeDepth(tex2D(_CameraDepthTexture, i.uv).r);
+                depth *= length(i.ray);
                 fixed3 col = tex2D(_MainTex, i.uv);
 
                 float3 rayDirection = normalize(i.ray.xyz);
                 float3 rayOrigin = _WorldSpaceCameraPos;
-                fixed4 result = raymarching(rayOrigin, rayDirection);
+                fixed4 result = raymarching(rayOrigin, rayDirection, depth);
 
                 return fixed4(col * (1.0 - result.w) + result.xyz*result.w,1.0);
             

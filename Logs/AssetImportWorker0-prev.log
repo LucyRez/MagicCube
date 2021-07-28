@@ -15,11 +15,11 @@ C:/UnityProjects/MagicCube
 -logFile
 Logs/AssetImportWorker0.log
 -srvPort
-51732
+49756
 Successfully changed project path to: C:/UnityProjects/MagicCube
 C:/UnityProjects/MagicCube
 Using Asset Import Pipeline V2.
-Refreshing native plugins compatible for Editor in 47.62 ms, found 2 plugins.
+Refreshing native plugins compatible for Editor in 36.03 ms, found 2 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Initialize engine version: 2020.3.11f1 (99c7afb366b3)
 [Subsystems] Discovering subsystems at path C:/Program Files/2020.3.11f1/Editor/Data/Resources/UnitySubsystems
@@ -35,53 +35,159 @@ Initialize mono
 Mono path[0] = 'C:/Program Files/2020.3.11f1/Editor/Data/Managed'
 Mono path[1] = 'C:/Program Files/2020.3.11f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit'
 Mono config path = 'C:/Program Files/2020.3.11f1/Editor/Data/MonoBleedingEdge/etc'
-Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56812
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56128
 Begin MonoManager ReloadAssembly
 Registering precompiled unity dll's ...
 Register platform support module: C:/Program Files/2020.3.11f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
-Registered in 0.004471 seconds.
+Registered in 0.001708 seconds.
 Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 36.96 ms, found 2 plugins.
+Refreshing native plugins compatible for Editor in 33.27 ms, found 2 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  2.044 seconds
+- Completed reload, in  1.155 seconds
 Platform modules already initialized, skipping
 Registering precompiled user dll's ...
-Registered in 0.003639 seconds.
+Registered in 0.003540 seconds.
 Begin MonoManager ReloadAssembly
 Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 0.44 ms, found 2 plugins.
+Refreshing native plugins compatible for Editor in 0.45 ms, found 2 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  2.391 seconds
+- Completed reload, in  1.210 seconds
 Platform modules already initialized, skipping
 ========================================================================
 Worker process is ready to serve import requests
-Launched and connected shader compiler UnityShaderCompiler.exe after 0.06 seconds
-Refreshing native plugins compatible for Editor in 0.86 ms, found 2 plugins.
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.05 seconds
+Refreshing native plugins compatible for Editor in 0.45 ms, found 2 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Unloading 1395 Unused Serialized files (Serialized files now loaded: 0)
 System memory in use before: 67.7 MB.
 System memory in use after: 67.7 MB.
 
 Unloading 21 unused Assets to reduce memory usage. Loaded Objects now: 1831.
-Total: 4.314000 ms (FindLiveObjects: 0.363500 ms CreateObjectMapping: 0.146700 ms MarkObjects: 3.627400 ms  DeleteObjects: 0.174800 ms)
+Total: 2.664300 ms (FindLiveObjects: 0.185200 ms CreateObjectMapping: 0.062400 ms MarkObjects: 2.197900 ms  DeleteObjects: 0.217700 ms)
 
 ========================================================================
 Received Import Request.
   path: Assets/Scripts/Shaders/RaymarchShader.shader
   artifactKey: Guid(6497714348d78a245945498ca5a41a88) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Shaders/RaymarchShader.shader using Guid(6497714348d78a245945498ca5a41a88) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'de5cd9d4884bc2c88e291c1d04bf3a32') in 0.052455 seconds
-  Import took 0.057891 seconds .
+Start importing Assets/Scripts/Shaders/RaymarchShader.shader using Guid(6497714348d78a245945498ca5a41a88) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'de8dae5cccf47c34cd6d482665d86f5e') in 0.043159 seconds
+  Import took 0.046410 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 6.249940 seconds.
+  path: Assets/Scripts/Shaders/TestShader.shader
+  artifactKey: Guid(a774adba968820e45a2922be33de4bd8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Shaders/TestShader.shader using Guid(a774adba968820e45a2922be33de4bd8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1fbfefd34d3c4774e6a43b65d2e06cbd') in 0.003157 seconds
+  Import took 0.006625 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.001516 seconds.
+  path: Assets/Scripts/Shaders/TestShader.shader
+  artifactKey: Guid(a774adba968820e45a2922be33de4bd8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Shaders/TestShader.shader using Guid(a774adba968820e45a2922be33de4bd8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1fbfefd34d3c4774e6a43b65d2e06cbd') in 0.003167 seconds
+  Import took 0.006245 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 42.466213 seconds.
+  path: Assets/Scripts/Shaders/TestShader.shader
+  artifactKey: Guid(a774adba968820e45a2922be33de4bd8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Shaders/TestShader.shader using Guid(a774adba968820e45a2922be33de4bd8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '97975a59265e493333446cce5ebda891') in 0.003488 seconds
+  Import took 0.007453 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.145385 seconds.
+  path: Assets/Scripts/Shaders/TestShader.shader
+  artifactKey: Guid(a774adba968820e45a2922be33de4bd8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Shaders/TestShader.shader using Guid(a774adba968820e45a2922be33de4bd8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '97975a59265e493333446cce5ebda891') in 0.003574 seconds
+  Import took 0.007851 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 38.219157 seconds.
+  path: Assets/Scripts/Shaders/TestShader.shader
+  artifactKey: Guid(a774adba968820e45a2922be33de4bd8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Shaders/TestShader.shader using Guid(a774adba968820e45a2922be33de4bd8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'eb531cff0f98852569ce4471e6bfc619') in 0.003437 seconds
+  Import took 0.010059 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 100.339126 seconds.
+  path: Assets/Scripts/Shaders/RaymarchShader.shader
+  artifactKey: Guid(6497714348d78a245945498ca5a41a88) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Shaders/RaymarchShader.shader using Guid(6497714348d78a245945498ca5a41a88) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3ea4529a312581ba9a67126e513d215f') in 0.004165 seconds
+  Import took 0.007523 seconds .
 
 ========================================================================
 Received Prepare
-Refreshing native plugins compatible for Editor in 13.83 ms, found 2 plugins.
+Registering precompiled user dll's ...
+Registered in 0.003779 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 0.53 ms, found 2 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 14 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 40.1 MB.
-System memory in use after: 40.1 MB.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.531 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 0.49 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 1388 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 67.5 MB.
+System memory in use after: 67.5 MB.
 
-Unloading 14 unused Assets to reduce memory usage. Loaded Objects now: 1831.
-Total: 10.090500 ms (FindLiveObjects: 0.555300 ms CreateObjectMapping: 0.314700 ms MarkObjects: 8.821400 ms  DeleteObjects: 0.355400 ms)
+Unloading 16 unused Assets to reduce memory usage. Loaded Objects now: 1834.
+Total: 3.503100 ms (FindLiveObjects: 0.283200 ms CreateObjectMapping: 0.152700 ms MarkObjects: 2.897200 ms  DeleteObjects: 0.168500 ms)
 
+========================================================================
+Received Import Request.
+  Time since last request: 1580.666731 seconds.
+  path: Assets/Scripts/Shaders/RaymarchShader.shader
+  artifactKey: Guid(6497714348d78a245945498ca5a41a88) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Shaders/RaymarchShader.shader using Guid(6497714348d78a245945498ca5a41a88) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b4e1a5812f8634a8f9ee877986c23251') in 0.018256 seconds
+  Import took 0.021598 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 297.513882 seconds.
+  path: Assets/Scripts/Shaders/RaymarchShader.shader
+  artifactKey: Guid(6497714348d78a245945498ca5a41a88) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Shaders/RaymarchShader.shader using Guid(6497714348d78a245945498ca5a41a88) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3cda4bd940e80ae07fc09ab814559887') in 0.004171 seconds
+  Import took 0.008497 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 49.319213 seconds.
+  path: Assets/Scenes/Fractals.unity
+  artifactKey: Guid(332ace9576cd8924299425ec5f060aa0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/Fractals.unity using Guid(332ace9576cd8924299425ec5f060aa0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '94f7ac46727c7d70a8febbee5146df1b') in 0.007483 seconds
+  Import took 0.011405 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 5.920318 seconds.
+  path: Assets/Scenes/FractalTest.unity
+  artifactKey: Guid(b0a9b64db449a5346a25ba83eff0449b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/FractalTest.unity using Guid(b0a9b64db449a5346a25ba83eff0449b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '09f34130e5651c2bfd3c68d7bea02536') in 0.002673 seconds
+  Import took 0.005674 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 18.343017 seconds.
+  path: Assets/Scenes/Fractals.unity
+  artifactKey: Guid(332ace9576cd8924299425ec5f060aa0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/Fractals.unity using Guid(332ace9576cd8924299425ec5f060aa0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '295d37413bc37e93e9132823c4d5c63b') in 0.002379 seconds
+  Import took 0.006319 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 254.684590 seconds.
+  path: Assets/Scripts/Shaders/RaymarchShader.shader
+  artifactKey: Guid(6497714348d78a245945498ca5a41a88) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Shaders/RaymarchShader.shader using Guid(6497714348d78a245945498ca5a41a88) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '82ae32e3ee5643a5bfdadc662f1107ec') in 0.003966 seconds
+  Import took 0.009495 seconds .
+
+AssetImportWorkerClient::OnTransportError - code=2 error=End of file
