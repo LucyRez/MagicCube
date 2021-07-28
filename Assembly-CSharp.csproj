@@ -36,8 +36,13 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\SimpleCameraController.cs" />
      <Compile Include="Assets\Scripts\CameraRotation.cs" />
+     <Compile Include="Assets\Scripts\SimpleCameraController.cs" />
+     <Compile Include="Assets\Scripts\RaymarchCamera.cs" />
+     <Compile Include="Assets\Scripts\SceneViewFilter.cs" />
+     <Compile Include="Assets\Scripts\Test.cs" />
+     <None Include="Assets\Scripts\Shaders\RaymarchShader.shader" />
+     <None Include="Assets\Scripts\Shaders\TestShader.shader" />
      <None Include="Assets\Scripts\Shaders\MaskShader.shader" />
      <None Include="Assets\Scripts\Shaders\ObjectShader.shader" />
     <Reference Include="UnityEngine">
