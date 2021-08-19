@@ -44,7 +44,11 @@ public class RaymarchCamera : SceneViewFilter
     public Color mainColor;
 
     public Vector4 sphere;
+
     public Vector4 box;
+    public Vector4 box2;
+    public Vector4 box3;
+    public Vector4 cross;
     public Vector3 modInterval;
 
     public Transform directionalLight;
@@ -62,6 +66,9 @@ public class RaymarchCamera : SceneViewFilter
         raymarchMaterial.SetFloat("maxDistance", maxDistance);
         raymarchMaterial.SetVector("sphere", sphere);
         raymarchMaterial.SetVector("box", box);
+        raymarchMaterial.SetVector("box2", box2);
+        raymarchMaterial.SetVector("box3", box3);
+        raymarchMaterial.SetVector("cross", cross);
         raymarchMaterial.SetVector("modInterval", modInterval);
         raymarchMaterial.SetVector("lightDirection", directionalLight ? directionalLight.forward : Vector3.down);
         raymarchMaterial.SetColor("mainColor", mainColor);

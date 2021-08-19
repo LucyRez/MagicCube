@@ -24,7 +24,7 @@ Shader "FractalShader/RaymarchShader"
 
             uniform float4x4 camFrustum, camToWorld;
             uniform float maxDistance;
-            uniform float4 sphere, box;
+            uniform float4 sphere, box, box2, box3, cross;
             uniform float3 modInterval;
             uniform float3 lightDirection;
 
@@ -61,13 +61,18 @@ Shader "FractalShader/RaymarchShader"
 
             float distanceField(float3 p){
 
-                float modX = pMod1(p.x, modInterval.x);
-                float modY = pMod1(p.y, modInterval.y);
-                float modZ = pMod1(p.z, modInterval.z);
-                float sphere1 = sdSphere(p - sphere.xyz, sphere.w);
-                float cube1 = sdBox(p - box.xyz, box.www);
+            //      
+                
+                float menger = sdMenger((p / 120.0)) * 120.0;
+                
+                // float sphere1 = sdCross(p - sphere.xyz, sphere.w);
+                // float cube1 = sdCross(p - box.xyz, box.www);
+                // float cube2 = sdCross(p - box2.xyz, box2.www);
+                // float cube3 = sdBox(p - box3.xyz, box3.www);
+                // float cross1 = sdCross(p - cross.xyz, cross.www);
 
-                return opS(sphere1,cube1);
+                return menger;
+                // return opS(sphere1, opS(cube1,opS(cube2,opS(cross1, cube3))));
             }
 
             float3 getNormal(float3 p){

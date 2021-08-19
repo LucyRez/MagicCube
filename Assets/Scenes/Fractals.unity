@@ -175,7 +175,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 90
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -220,11 +220,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shader: {fileID: 4800000, guid: 6497714348d78a245945498ca5a41a88, type: 3}
-  maxDistance: 20
+  maxDistance: 200
   mainColor: {r: 0, g: 0.61961514, b: 0.8301887, a: 0}
-  sphere: {x: 0, y: 0, z: 0, w: 3.38}
-  box: {x: 0, y: 0, z: 0, w: 2.73}
-  modInterval: {x: 4, y: 4, z: 4}
+  sphere: {x: 0, y: 0, z: 0, w: 0}
+  box: {x: 2.7, y: 2.68, z: 2.55, w: 0.11}
+  box2: {x: 2.15, y: 2.15, z: 2.14, w: 0.27}
+  box3: {x: 0, y: 0, z: 0, w: 3}
+  cross: {x: 0, y: 0, z: 0, w: 1.34}
+  modInterval: {x: 120, y: 120, z: 120}
   directionalLight: {fileID: 612486882}
 --- !u!1 &612486880
 GameObject:
