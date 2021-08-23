@@ -10,12 +10,6 @@ Shader "Custom/ObjectShader"
     }
     SubShader
     {
-        Tags { 
-            "RenderType"="Opaque" 
-            "ForceNoShadowCasting" = "True"
-        }
-
-        LOD 200
 
          Stencil{
             Ref[_StencilMask]

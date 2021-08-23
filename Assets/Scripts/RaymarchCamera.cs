@@ -39,22 +39,109 @@ public class RaymarchCamera : SceneViewFilter
         }
     }
 
-    public float maxDistance;
-
-    public Color mainColor;
-
-    public Vector4 sphere;
-
-    public Vector4 box;
-    public Vector4 box2;
-    public Vector4 box3;
-    public Vector4 cross;
-    public Vector3 modInterval;
-
     public Transform directionalLight;
+    public float maxDistance;
+    public float precision;
+
+    // bool values are converted to int
+    public bool useShadow;
+    public bool useModul;
+    public bool drawMenger;
+    public bool drawMengerSphere;
+    public bool drawSierpinski;
+    public bool drawMengerSlice;
+    public int iterations;
+    public float scaleFactor;
+    public Vector3 modOffset;
+    public Vector3 globalPosition;
+    public Vector3 globalRotation;
+    public float globalScale;
+    public bool useSectionPlane;
+    public Vector3 sectionPos;
+    public Vector3 sectionRot;
+
+    [HideInInspector]
+    public int fractalType;
+    private int usePlane;
+    private int useMod;
+
+    public Vector3 modInterval;
+    public Color mainColor;
+    public Color secondaryColor;
+
+    [HideInInspector]
+    public Matrix4x4 sectionTransform;
+    [HideInInspector]
+    public Matrix4x4 globalTransform;
+
 
     private void OnRenderImage(RenderTexture source, RenderTexture destination)
     {
+        if(drawMenger){
+            fractalType = 1;
+            raymarchMaterial.SetVector("modOffset", modOffset);
+        }
+
+        if(drawSierpinski){
+            fractalType = 2;
+        }
+
+        if(drawMengerSphere){
+            fractalType = 4;
+        }
+
+        if(drawMengerSlice){
+            fractalType = 3;
+            useSectionPlane = true;
+        }
+
+        if(useModul){
+            useMod = 1;
+            raymarchMaterial.SetVector("modInterval", modInterval);
+        }else{
+            useMod = 0;
+        }
+
+        if(useSectionPlane){
+            usePlane = 1;
+            sectionTransform = Matrix4x4.TRS(
+                sectionPos,
+                Quaternion.identity,
+                Vector3.one
+            );
+
+            sectionTransform *= Matrix4x4.TRS(
+                Vector3.zero, 
+                Quaternion.Euler(sectionRot),
+                Vector3.one
+            );
+
+            raymarchMaterial.SetMatrix("sectionTransform", sectionTransform.inverse);
+        }else{
+            usePlane = 0;
+        }
+
+        globalTransform = Matrix4x4.TRS(
+            globalPosition,
+            Quaternion.identity,
+            Vector3.one
+        );
+
+        globalTransform *= Matrix4x4.TRS(
+            Vector3.zero,
+            Quaternion.Euler(globalRotation),
+            Vector3.one
+        );
+
+        raymarchMaterial.SetMatrix("globalTransform", globalTransform.inverse);
+        raymarchMaterial.SetVector("globalPosition", globalPosition);
+
+        if(useShadow){
+            raymarchMaterial.SetInt("useShadow", 1);
+        }else{
+            raymarchMaterial.SetInt("useShadow", 0);
+        }
+
         if (!raymarchMaterial)
         {
             Graphics.Blit(source, destination);
@@ -64,14 +151,18 @@ public class RaymarchCamera : SceneViewFilter
         raymarchMaterial.SetMatrix("camFrustum", CameraFrustum(_camera));
         raymarchMaterial.SetMatrix("camToWorld", _camera.cameraToWorldMatrix);
         raymarchMaterial.SetFloat("maxDistance", maxDistance);
-        raymarchMaterial.SetVector("sphere", sphere);
-        raymarchMaterial.SetVector("box", box);
-        raymarchMaterial.SetVector("box2", box2);
-        raymarchMaterial.SetVector("box3", box3);
-        raymarchMaterial.SetVector("cross", cross);
-        raymarchMaterial.SetVector("modInterval", modInterval);
+        raymarchMaterial.SetFloat("precision", precision);
+        raymarchMaterial.SetInt("iterations", iterations);
+        
+        raymarchMaterial.SetFloat("globalScale", globalScale);
+        raymarchMaterial.SetFloat("scaleFactor", scaleFactor);
         raymarchMaterial.SetVector("lightDirection", directionalLight ? directionalLight.forward : Vector3.down);
         raymarchMaterial.SetColor("mainColor", mainColor);
+        raymarchMaterial.SetColor("secondaryColor", secondaryColor);
+
+        raymarchMaterial.SetInt("fractalType", fractalType);
+        raymarchMaterial.SetInt("usePlane", usePlane);
+        raymarchMaterial.SetInt("useMod", useMod);
 
         RenderTexture.active = destination;
         raymarchMaterial.SetTexture("_MainTex", source);

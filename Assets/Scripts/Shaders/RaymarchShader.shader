@@ -3,6 +3,7 @@ Shader "FractalShader/RaymarchShader"
     Properties
     {
         _MainTex ("Texture", 2D) = "white" {}
+        _StencilMask("Stencil Mask", Int) = 1
     }
     SubShader
     {
@@ -14,21 +15,36 @@ Shader "FractalShader/RaymarchShader"
             CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag
-            #pragma target 3.0
 
             #include "UnityCG.cginc"
             #include "DistanceFunctions.cginc"
 
+
             sampler2D _MainTex;
             uniform sampler2D _CameraDepthTexture;
 
+            // All the variables are feeded through camera scipt
             uniform float4x4 camFrustum, camToWorld;
-            uniform float maxDistance;
-            uniform float4 sphere, box, box2, box3, cross;
+            uniform float maxDistance; // max render distance
+            uniform float precision; 
+            uniform int iterations;
+            uniform float scaleFactor;
             uniform float3 modInterval;
+            uniform float3 modOffset;
+            uniform float3 modOffsetRot;
+            uniform float4x4 globalTransform;
+            uniform float3 globalPosition;
+            uniform float4x4 rotate45;
+            uniform float globalScale;
+            uniform float4x4 sectionTransform;
             uniform float3 lightDirection;
-
             uniform fixed4 mainColor;
+            uniform fixed4 secondaryColor;
+            uniform int fractalType;
+            uniform int useMod;
+            uniform int usePlane;
+            uniform int useShadow;
+            
 
             struct appdata
             {
@@ -50,7 +66,7 @@ Shader "FractalShader/RaymarchShader"
                 v.vertex.z = 0;
     
                 o.vertex = UnityObjectToClipPos(v.vertex);
-                o.uv = v.uv;
+                o.uv = v.uv.xy;
                 
                 o.ray = camFrustum[(int)index].xyz;
                 o.ray /= abs(o.ray.z);
@@ -59,53 +75,95 @@ Shader "FractalShader/RaymarchShader"
                 return o;
             }
 
-            float distanceField(float3 p){
-
-            //      
+            // Function returns distance to fractal
+            float2 distanceField(float3 p){
+  
+                float2 distance;
                 
-                float menger = sdMenger((p / 120.0)) * 120.0;
-                
-                // float sphere1 = sdCross(p - sphere.xyz, sphere.w);
-                // float cube1 = sdCross(p - box.xyz, box.www);
-                // float cube2 = sdCross(p - box2.xyz, box2.www);
-                // float cube3 = sdBox(p - box3.xyz, box3.www);
-                // float cross1 = sdCross(p - cross.xyz, cross.www);
+                if(useMod == 1){
+                    p.x = pMod(p.x, modInterval.x * globalScale * 2);
+                    p.y = pMod(p.y, modInterval.y * globalScale * 2);
+                    p.z = pMod(p.z, modInterval.z * globalScale * 2);
+                }
 
-                return menger;
-                // return opS(sphere1, opS(cube1,opS(cube2,opS(cross1, cube3))));
+                // menger sponge
+                if(fractalType == 1){
+                    distance = sdMenger(p, globalScale, iterations, modOffset, globalTransform, scaleFactor);
+                }
+                //sierpinski triangle
+                else if(fractalType == 2){
+                    distance = sdSierpinski(p, globalScale, iterations, modOffset, globalTransform, scaleFactor, rotate45);
+                }
+                //menger sponge cut
+                else if(fractalType == 3){
+                    distance = sdMenger(p, globalScale, iterations, modOffset, globalTransform, scaleFactor);
+                    float plane = sdPlane(p, sectionTransform);
+                    return max(distance, plane);
+                }
+                // menger sphere
+                else if(fractalType == 4){
+                    distance = sdMengerSphere(p, globalScale, iterations, modOffset,
+                    globalTransform, scaleFactor);
+                }
+                // Sphere by default
+                else{
+
+                }
+
+                if(usePlane == 1){
+                    float plane = sdPlane(p, sectionTransform);
+                    return min(distance, plane);
+                }
+
+                return distance;
             }
 
             float3 getNormal(float3 p){
                 const float2 offset = float2(0.001, 0.0);
                 float3 n = float3(
-                    distanceField(p + offset.xyy) - distanceField(p - offset.xyy),
-                     distanceField(p + offset.yxy) - distanceField(p - offset.yxy),
-                      distanceField(p + offset.yyx) - distanceField(p - offset.yyx)
+                    distanceField(p - offset.xyy).x,
+                     distanceField(p - offset.yxy).x,
+                       distanceField(p - offset.yyx).x
                 );
 
                 return normalize(n);
             }
 
             fixed4 raymarching(float3 ro, float3 rd, float depth){
-                fixed4 result = fixed4(1,1,1,1);
-                const int maxIter = 500;
+                fixed4 result = fixed4(0,0,0,0.5);
+                float3 colorDepth;
+                const int maxIter = 400; // max steps
                 float t = 0;
 
                 for(int i = 0; i < maxIter; i++){
-                    if(t > maxDistance || t >= depth){
+
+                    // send out a ray from the camera
+                    float3 p = ro + rd*t;
+
+                     if(t > maxDistance || t >= depth){
+                        // if too far draw environment
                         result = fixed4(rd, 0);
                         break;
                     }
 
-                    float3 p = ro + rd*t;
+                    // get distance to fractal
+                    float2 d = distanceField(p);
 
-                    float d = distanceField(p);
-
-                    if(d < 0.01){
+                    // ray hit an object
+                    if(d.x < precision){
+                        float shadow;
+                        float3 color = float3(mainColor.rgb*(iterations-d.y)/iterations +
+                        secondaryColor.rgb * d.y/iterations);
                         float3 n = getNormal(p);
                         float light = dot(-lightDirection, n);
 
-                        result = fixed4(mainColor.rgb * light,1);
+                        if(useShadow == 0){
+                            light = 1;
+                        }
+
+                        colorDepth = float3(float3(color*light)*(maxDistance-t)/maxDistance);
+
+                        result = fixed4(colorDepth,1);
                         break;
                     }
 

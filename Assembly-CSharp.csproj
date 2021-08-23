@@ -41,6 +41,9 @@
      <Compile Include="Assets\Scripts\RaymarchCamera.cs" />
      <Compile Include="Assets\Scripts\SceneViewFilter.cs" />
      <Compile Include="Assets\Scripts\Test.cs" />
+     <Compile Include="Assets\Scripts\PortalCamera.cs" />
+     <Compile Include="Assets\Scripts\PortalTextureSetup.cs" />
+     <None Include="Assets\Scripts\Shaders\ScreenCutoutShader.shader" />
      <None Include="Assets\Scripts\Shaders\RaymarchShader.shader" />
      <None Include="Assets\Scripts\Shaders\TestShader.shader" />
      <None Include="Assets\Scripts\Shaders\MaskShader.shader" />
