@@ -119,14 +119,31 @@ Shader "FractalShader/RaymarchShader"
             }
 
             float3 getNormal(float3 p){
-                const float2 offset = float2(0.001, 0.0);
-                float3 n = float3(
-                    distanceField(p - offset.xyy).x,
-                     distanceField(p - offset.yxy).x,
-                       distanceField(p - offset.yyx).x
-                );
+             float d = distanceField(p).x;
+                const float2 e = float2(.01, 0);
+              float3 n = d - float3(distanceField(p - e.xyy).x,distanceField(p - e.yxy).x,distanceField(p - e.yyx).x);
+              return normalize(n);
+            }
 
-                return normalize(n);
+            float getShadow(in float3 ro, in float3 rd, float mint,float maxt, float k){
+                float res = 1.0;
+                float ph = 1e20;
+
+                for(float t = mint; t < maxt;){
+                    float h = distanceField(ro + rd*t);
+
+                    if(h < 0.001){
+                        return 0.0;
+                    }
+
+                    float y = h*h/(2.0*ph);
+                    float d = sqrt(h*h - y*y);
+                    res = min(res, k*d/max(0.0,t-y));
+                    ph = h;
+                    t+=h;
+                }
+
+                return res;
             }
 
             fixed4 raymarching(float3 ro, float3 rd, float depth){
@@ -155,13 +172,15 @@ Shader "FractalShader/RaymarchShader"
                         float3 color = float3(mainColor.rgb*(iterations-d.y)/iterations +
                         secondaryColor.rgb * d.y/iterations);
                         float3 n = getNormal(p);
-                        float light = dot(-lightDirection, n);
+                        float light = dot(-lightDirection, n)* 0.2 + 0.8;
 
                         if(useShadow == 0){
-                            light = 1;
+                            shadow = 1;
+                        }else{
+                            shadow = getShadow(p, -lightDirection, 0.1, maxDistance, 3) * (1 - 0.5) + 0.5;
                         }
 
-                        colorDepth = float3(float3(color*light)*(maxDistance-t)/maxDistance);
+                        colorDepth = float3(float3(color*light*shadow)*(maxDistance-t)/maxDistance);
 
                         result = fixed4(colorDepth,1);
                         break;

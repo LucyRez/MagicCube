@@ -5,7 +5,13 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Test.unity
     guid: f7be929ed2084474ba8c05aa086e7d49
+  - enabled: 1
+    path: Assets/Scenes/Main Menu.unity
+    guid: ec5c37a0c37de7d41b7cffc380c47416
+  - enabled: 1
+    path: Assets/Scenes/Fractals.unity
+    guid: 332ace9576cd8924299425ec5f060aa0
   m_configObjects: {}
